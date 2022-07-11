@@ -9,7 +9,6 @@ const NewsPage = () => {
           <Link href={'/news/id0'}>NextJS Is A Great Framework</Link>
         </li>
       </ul>
-      <Link href='/'>Back</Link>
     </Fragment>
   );
 };
