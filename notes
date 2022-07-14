@@ -1,0 +1,29 @@
+1.next.js is a framework like express or other node.js base framework, but it focus on handling the SSR.
+2.how to handle https : 
+var https = require('https');
+var fs = require('fs');
+
+const next = require('next')
+const port = parseInt(process.env.PORT, 10) || config.getPort()
+const dev = process.env.NODE_ENV !== 'production'
+const app = next({ dev, dir: __dirname })
+const handle = app.getRequestHandler()
+
+
+var options = {
+    key: fs.readFileSync('ssl.key'),
+    cert: fs.readFileSync('ssl.crt'),
+    ca: [fs.readFileSync('root.crt')]
+};
+
+app.prepare().then(() => {
+    https.createServer(options, (req, res) => {
+        // handle ....
+    }).listen(port, err => {
+        if (err) throw err
+        console.log(`> Ready on localhost:${port}`)
+    })
+})
+
+3.use pm2 and nginx to serve the service
+https://www.willandskill.se/en/articles/setup-a-next-js-project-with-pm2-nginx-and-yarn-on-ubuntu-18-04
